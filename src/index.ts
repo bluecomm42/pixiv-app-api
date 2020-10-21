@@ -39,14 +39,14 @@ import {
 } from './PixivTypes'
 
 const baseURL = 'https://app-api.pixiv.net/'
-const appVersion = '5.0.212';
-const userAgent = `PixivAndroidApp/${appVersion} (Android 6.0; PixivBot)`;
+const appVersion = '7.2.5'
+const userAgent = `PixiviOSApp/${appVersion} (iOS 14.1; PixivBot)`
 
 const instance = axios.create({
   baseURL,
   headers: {
-    'App-OS': 'android',
-    'App-OS-Version': '6.0',
+    'App-OS': 'ios',
+    'App-OS-Version': '7.9.5',
     'App-Version': appVersion,
     'User-Agent': userAgent,
   },
