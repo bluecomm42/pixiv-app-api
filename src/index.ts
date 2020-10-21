@@ -39,12 +39,16 @@ import {
 } from './PixivTypes'
 
 const baseURL = 'https://app-api.pixiv.net/'
+const appVersion = '5.0.212';
+const userAgent = `PixivAndroidApp/${appVersion} (Android 6.0; PixivBot)`;
+
 const instance = axios.create({
   baseURL,
   headers: {
-    'App-OS': 'ios',
-    'App-OS-Version': '9.3.3',
-    'App-Version': '6.0.9',
+    'App-OS': 'android',
+    'App-OS-Version': '6.0',
+    'App-Version': appVersion,
+    'User-Agent': userAgent,
   },
 })
 
@@ -119,6 +123,7 @@ export default class PixivApp<CamelcaseKeys extends boolean = true> {
       .padStart(2, '0')}+00:00`
 
     const headers = {
+      'User-Agent': userAgent,
       'X-Client-Time': local_time,
       'X-Client-Hash': cryptoCreateHash('md5')
         .update(Buffer.from(`${local_time}${HASH_SECRET}`, 'utf8'))
