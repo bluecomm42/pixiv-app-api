@@ -19,7 +19,7 @@
     "build": "tsc",
     "lint": "eslint --fix src/*.ts",
     "test": "jest",
-    "prepublish": "yarn build",
+    "prepublish": "npm run build",
     "start": "tsc && node dist/test.js"
   },
   "lint-staged": {
