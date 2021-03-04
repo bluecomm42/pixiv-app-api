@@ -201,6 +201,7 @@ export interface PixivIllust {
   }
   caption: string
   restrict: number
+  xRestrict: number
   user: PixivUser
   tags: PixivTag[]
   tools: string[]
