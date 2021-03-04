@@ -8,11 +8,10 @@ const is_plain_obj_1 = __importDefault(require("is-plain-obj"));
 const _1 = __importDefault(require("."));
 const userId = 471355;
 const illustId = 57907953;
-const PASSWORD = process.env.PASSWORD;
-const NAME = process.env.NAME;
+const REFRESH_TOKEN = process.env.REFRESH_TOKEN;
 jest.setTimeout(10000);
 function setup() {
-    return new _1.default(NAME, PASSWORD);
+    return new _1.default(REFRESH_TOKEN);
 }
 const pixiv = setup();
 let auth = null;

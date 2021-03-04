@@ -4,13 +4,12 @@ import PixivAppApi from '.'
 
 const userId = 471355
 const illustId = 57907953
-const PASSWORD = process.env.PASSWORD as string
-const NAME = process.env.NAME as string
+const REFRESH_TOKEN = process.env.REFRESH_TOKEN as string
 
 jest.setTimeout(10000)
 
 function setup() {
-  return new PixivAppApi(NAME, PASSWORD)
+  return new PixivAppApi(REFRESH_TOKEN)
 }
 
 const pixiv = setup()

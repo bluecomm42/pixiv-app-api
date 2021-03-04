@@ -70,11 +70,11 @@ interface Pixiv_Client = {
 
 ## API
 
-#### `constructor(username?: string, password?: string, options? {camelcaseKeys?: boolean})`
+#### `constructor(refreshToken?: string, options? {camelcaseKeys?: boolean})`
 
 Creates a new PixivAppApi object. `camelcaseKeys` defaults to `true` if it is omitted.
 
-#### `login(username?: string, password?: string): Promise<PixivClient>`
+#### `login(refreshToken?: string): Promise<PixivClient>`
 
 Logs into the API.
 
@@ -850,14 +850,10 @@ Return next params parameter.
 
 ## Tests
 
-Export your pixiv username and password before running Tests.
+Export your pixiv refresh token before running Tests.
 
 ```
-$ export USERNAME=your pixiv username...
-$ export PASSWORD=your pixiv password...
-```
-
-```
+$ export REFRESH_TOKEN=your pixiv refresh token...
 $ npm test
 ```
 

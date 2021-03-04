@@ -29,8 +29,6 @@ export interface PixivRequestData {
   getSecureUrl: string
   grantType: string
   refreshToken: string
-  username: string
-  password: string
 }
 
 export interface PixivParams {

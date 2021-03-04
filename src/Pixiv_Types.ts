@@ -29,8 +29,6 @@ export interface Pixiv_Request_Data {
   get_secure_url: string
   grant_type: string
   refresh_token: string
-  username: string
-  password: string
 }
 
 export interface Pixiv_User {

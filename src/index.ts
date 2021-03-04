@@ -60,21 +60,16 @@ const filter = 'for_ios'
 
 export default class PixivApp<CamelcaseKeys extends boolean = true> {
   camelcaseKeys: CamelcaseKeys
-  username: string | undefined
-  password: string | undefined
-  refreshToken: string
+  refreshToken: string | undefined
   nextUrl: string | null
   auth: PixivClient | null
   private _once: boolean
 
   constructor(
-    username?: string,
-    password?: string,
+    refreshToken?: string,
     options?: { camelcaseKeys?: CamelcaseKeys }
   ) {
-    this.username = username
-    this.password = password
-    this.refreshToken = ''
+    this.refreshToken = refreshToken
     this.nextUrl = null
     this.auth = null
     this._once = false
@@ -86,24 +81,14 @@ export default class PixivApp<CamelcaseKeys extends boolean = true> {
   }
 
   async login(
-    username?: string,
-    password?: string
+    refreshToken?: string
   ): Promise<CamelcaseKeys extends true ? PixivClient : Pixiv_Client> {
-    this.username = username || this.username
-    this.password = password || this.password
+    this.refreshToken = refreshToken || this.refreshToken
 
-    if (typeof this.username !== 'string') {
+    if (typeof this.refreshToken !== 'string') {
       return Promise.reject(
         new TypeError(
-          `Auth is required. Expected a string, got ${typeof this.username}`
-        )
-      )
-    }
-
-    if (typeof this.password !== 'string') {
-      return Promise.reject(
-        new TypeError(
-          `Auth is required. Expected a string, got ${typeof this.password}`
+          `Auth is required. Expected a string, got ${typeof this.refreshToken}`
         )
       )
     }
@@ -135,19 +120,11 @@ export default class PixivApp<CamelcaseKeys extends boolean = true> {
       clientSecret: CLIENT_SECRET,
       getSecureUrl: '1',
       grantType: '',
-      username: '',
-      password: '',
       refreshToken: '',
     }
 
-    if (this.refreshToken === '') {
-      data.grantType = 'password'
-      data.username = this.username
-      data.password = this.password
-    } else {
-      data.grantType = 'refresh_token'
-      data.refreshToken = this.refreshToken
-    }
+    data.grantType = 'refresh_token'
+    data.refreshToken = this.refreshToken
 
     const axiosResponse = await axios.post(
       'https://oauth.secure.pixiv.net/auth/token',

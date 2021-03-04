@@ -38,20 +38,8 @@ const CLIENT_SECRET = 'lsACyCD94FhDUtGTXi3QzcFE2uU1hqtDaKeqrdwj';
 const HASH_SECRET = '28c1fdd170a5204386cb1313c7077b34f83e4aaf4aa829ce78c231e05b0bae2c';
 const filter = 'for_ios';
 class PixivApp {
-    constructor(username, password, options) {
+    constructor(refreshToken, options) {
         Object.defineProperty(this, "camelcaseKeys", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "username", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: void 0
-        });
-        Object.defineProperty(this, "password", {
             enumerable: true,
             configurable: true,
             writable: true,
@@ -81,9 +69,7 @@ class PixivApp {
             writable: true,
             value: void 0
         });
-        this.username = username;
-        this.password = password;
-        this.refreshToken = '';
+        this.refreshToken = refreshToken;
         this.nextUrl = null;
         this.auth = null;
         this._once = false;
@@ -94,14 +80,10 @@ class PixivApp {
             this.camelcaseKeys = true;
         }
     }
-    async login(username, password) {
-        this.username = username || this.username;
-        this.password = password || this.password;
-        if (typeof this.username !== 'string') {
-            return Promise.reject(new TypeError(`Auth is required. Expected a string, got ${typeof this.username}`));
-        }
-        if (typeof this.password !== 'string') {
-            return Promise.reject(new TypeError(`Auth is required. Expected a string, got ${typeof this.password}`));
+    async login(refreshToken) {
+        this.refreshToken = refreshToken || this.refreshToken;
+        if (typeof this.refreshToken !== 'string') {
+            return Promise.reject(new TypeError(`Auth is required. Expected a string, got ${typeof this.refreshToken}`));
         }
         const now_time = new Date();
         const local_time = `${now_time.getUTCFullYear()}-${now_time.getUTCMonth() + 1}-${now_time.getUTCDate()}T${now_time
@@ -126,19 +108,10 @@ class PixivApp {
             clientSecret: CLIENT_SECRET,
             getSecureUrl: '1',
             grantType: '',
-            username: '',
-            password: '',
             refreshToken: '',
         };
-        if (this.refreshToken === '') {
-            data.grantType = 'password';
-            data.username = this.username;
-            data.password = this.password;
-        }
-        else {
-            data.grantType = 'refresh_token';
-            data.refreshToken = this.refreshToken;
-        }
+        data.grantType = 'refresh_token';
+        data.refreshToken = this.refreshToken;
         const axiosResponse = await axios_1.default.post('https://oauth.secure.pixiv.net/auth/token', querystring_1.stringify(decamelize_keys_1.default(data)), { headers });
         const { response } = axiosResponse.data;
         this.auth = response;
