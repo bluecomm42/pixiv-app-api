@@ -134,7 +134,7 @@ export default class PixivApp<CamelcaseKeys extends boolean = true> {
 
     const { response } = axiosResponse.data
     this.auth = response
-    this.refreshToken = axiosResponse.data.response.refresh_token
+    this.refreshToken = response.refresh_token
     this.authToken = response.access_token
     return this.camelcaseKeys
       ? camelcaseKeys(response, { deep: true })
