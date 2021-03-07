@@ -115,7 +115,7 @@ class PixivApp {
         const axiosResponse = await axios_1.default.post('https://oauth.secure.pixiv.net/auth/token', querystring_1.stringify(decamelize_keys_1.default(data)), { headers });
         const { response } = axiosResponse.data;
         this.auth = response;
-        this.refreshToken = axiosResponse.data.response.refresh_token;
+        this.refreshToken = response.refresh_token;
         this.authToken = response.access_token;
         return this.camelcaseKeys
             ? camelcase_keys_1.default(response, { deep: true })
